@@ -69,11 +69,14 @@ static bool print_and_free_list(struct grind_elem* head) {
     if (head == NULL) {
         return false;
     }
+    struct grind_elem* prev;
     while (itr != NULL) {
+        prev = itr -> next;
         printf("Uh Oh! %ld Bytes Leaked From Line: %d\n", itr->size, itr->index);
         free_grind_elem(&itr);
-        itr = itr->next;
+        itr = prev;
     }
+    free_grind_elem(&itr);
     return true;
 }
 
